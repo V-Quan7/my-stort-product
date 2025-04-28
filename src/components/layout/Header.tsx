@@ -1,5 +1,6 @@
 'use client';
 import { logoutUser } from '@/actions/auth';
+import HeaderSearchBar from '@/components/layout/HeaderSearchBar';
 import { User } from '@/generated/prisma/client';
 import Link from 'next/dist/client/link'
 import { useRouter } from 'next/navigation';
@@ -21,9 +22,10 @@ const AnnouncementBar = () => {
 }
 type HeaderProps = {
     user: Omit<User, "passwordHash"> | null;
+    categorySelector: React.ReactNode;
 }
 
-const Header = ({ user }: HeaderProps) => {
+const Header = ({ user, categorySelector }: HeaderProps) => {
     const router = useRouter();
     const [isopen, setIsOpen] = useState<boolean>(true);
     const [prevScrolly, setPrevScrolly] = useState<number>(0);
@@ -57,16 +59,13 @@ const Header = ({ user }: HeaderProps) => {
                                 <FaAlignJustify />
                             </button>
                             <nav className='hidden md:flex gap-4 lg:gap-6 text:sm'>
-                                <Link href='#'>shop</Link>
-                                <Link href='#'>product</Link>
+                                {categorySelector}
                                 <Link href='#'>News </Link>
                             </nav>
                         </div>
                         <Link className='hidden sm:block' href={''}>link</Link>
                         <div className='flex flex-1 justify-end items-center gap-2 sm:gap-4 text-sm'>
-                            <button className='text-gray-700 hover:text-amber-300 hidden sm:inline'>
-                                <FiSearch />
-                            </button>
+                            <HeaderSearchBar />
 
                             {user ? (
                                 <div className='flex items-center gap-2 sm:gap-4'>
