@@ -60,7 +60,7 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
                             </button>
                             <nav className='hidden md:flex gap-4 lg:gap-6 text:sm'>
                                 {categorySelector}
-                                <Link href='#'>News </Link>
+                                <Link href='/'>News </Link>
                             </nav>
                         </div>
                         <Link className='hidden sm:block' href={''}>link</Link>
