@@ -116,7 +116,6 @@ const ProductPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
 
 
-
         </div>
 
 

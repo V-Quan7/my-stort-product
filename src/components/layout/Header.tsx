@@ -2,12 +2,14 @@
 import { logoutUser } from '@/actions/auth';
 import HeaderSearchBar from '@/components/layout/HeaderSearchBar';
 import { User } from '@/generated/prisma/client';
+import { useCartStore } from '@/stores/cart-store';
 import Link from 'next/dist/client/link'
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { FaAlignJustify } from "react-icons/fa";
 import { FiSearch } from 'react-icons/fi';
 import { GiShoppingCart } from 'react-icons/gi';
+import { useShallow } from 'zustand/shallow';
 
 const AnnouncementBar = () => {
     return (
@@ -29,6 +31,14 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
     const router = useRouter();
     const [isopen, setIsOpen] = useState<boolean>(true);
     const [prevScrolly, setPrevScrolly] = useState<number>(0);
+
+    const { open, getTotalItems } = useCartStore(
+        useShallow((state) => ({
+            open: state.open,
+            getTotalItems: state.getTotalItems
+        }))
+    );
+
     useEffect(() => {
         const handleScroll = () => {
             console.log("ScrollY:", window.scrollY); // Log vị trí cuộn
@@ -95,10 +105,10 @@ const Header = ({ user, categorySelector }: HeaderProps) => {
 
 
 
-                            <button className='text-gray-500 hover:text-gray-900 text-xl relative ' >
+                            <button onClick={() => open()} className='text-gray-500 hover:text-gray-900 text-xl relative ' >
                                 <GiShoppingCart />
                                 <span className='absolute -top-1 -right-1 bg-black text-white text-[10px] sm:text-xs w-3.5 h-3.5 sm:h-4 rounded-full flex items-center justify-center'>
-                                    0
+                                    {getTotalItems()}
                                 </span>
                             </button>
                         </div>

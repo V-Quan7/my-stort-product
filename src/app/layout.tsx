@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import { getCurrentSession } from "@/actions/auth";
 import { SanityLive } from "@/sanity/lib/live";
 import HeaderCategorySelector from "@/components/layout/HeaderCategorySelector";
+import Cart from "@/components/cart/Cart";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default async function RootLayout({
           categorySelector={<HeaderCategorySelector />}
         />
         {children}
+        <Cart />
         <SanityLive />
       </body>
     </html>
